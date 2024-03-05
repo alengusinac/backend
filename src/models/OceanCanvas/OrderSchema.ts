@@ -44,6 +44,6 @@ const OrderSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const oceanCanvasDB = mongoose.connection.useDb('ocean-canvas');
+const oceanCanvasDB = mongoose.connection.useDb('OceanCanvas');
 
 export const Order = oceanCanvasDB.model('Orders', OrderSchema);

@@ -13,6 +13,6 @@ const NewsletterSchema = new mongoose.Schema(
   }
 );
 
-const oceanCanvasDB = mongoose.connection.useDb('ocean-canvas');
+const oceanCanvasDB = mongoose.connection.useDb('OceanCanvas');
 
 export const Newsletter = oceanCanvasDB.model('Newsletters', NewsletterSchema);

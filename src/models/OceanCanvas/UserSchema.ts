@@ -28,6 +28,6 @@ const UserSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const oceanCanvasDB = mongoose.connection.useDb('ocean-canvas');
+const oceanCanvasDB = mongoose.connection.useDb('OceanCanvas');
 
 export const User = oceanCanvasDB.model('Users', UserSchema);

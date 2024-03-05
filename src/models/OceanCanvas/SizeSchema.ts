@@ -7,6 +7,6 @@ const SizeSchema = new mongoose.Schema({
   isDeleted: { type: Boolean, default: false },
 });
 
-const oceanCanvasDB = mongoose.connection.useDb('ocean-canvas');
+const oceanCanvasDB = mongoose.connection.useDb('OceanCanvas');
 
 export const Size = oceanCanvasDB.model('Sizes', SizeSchema);

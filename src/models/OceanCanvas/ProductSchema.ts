@@ -23,6 +23,6 @@ const ProductSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const oceanCanvasDB = mongoose.connection.useDb('ocean-canvas');
+const oceanCanvasDB = mongoose.connection.useDb('OceanCanvas');
 
 export const Product = oceanCanvasDB.model('Products', ProductSchema);
