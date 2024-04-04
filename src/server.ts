@@ -19,7 +19,12 @@ const app = express();
 app.use(
   cors({
     credentials: true,
-    origin: ['http://localhost:5173', 'https://oceancanvas-frontend.onrender.com', 'https://melissa-restaurant.onrender.com'],
+    origin: [
+      // 'http://localhost:5173',
+      'https://oceancanvas-frontend.onrender.com',
+      'https://melissa-restaurant.onrender.com',
+      'https://alengusinac.github.io/excel-to-swish-qr/',
+    ],
     methods: ['GET', 'POST', 'PUT'],
   })
 );
