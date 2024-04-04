@@ -20,7 +20,7 @@ app.use(
   cors({
     credentials: true,
     origin: [
-      // 'http://localhost:5173',
+      'http://localhost:5173',
       'https://oceancanvas-frontend.onrender.com',
       'https://melissa-restaurant.onrender.com',
       'https://alengusinac.github.io/',
