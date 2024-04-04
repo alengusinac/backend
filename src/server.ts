@@ -10,6 +10,7 @@ import sizeRouter from './routes/OceanCanvas/sizeRouter';
 import categoryRouter from './routes/OceanCanvas/categoryRouter';
 import emailRouter from './routes/OceanCanvas/emailRouter';
 import bookingsRouter from './routes/Melissa/bookings';
+import swishRouter from './routes/swishRouter';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -45,6 +46,8 @@ app.use('/ocean-canvas/categories', categoryRouter);
 app.use('/ocean-canvas/newsletter', emailRouter);
 
 app.use('/melissa/bookings', bookingsRouter);
+
+app.use('/swish', swishRouter);
 
 app.listen(process.env.SERVER_PORT, () => {
   console.log(`Application started on port ${process.env.SERVER_PORT}!`);
