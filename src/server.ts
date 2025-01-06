@@ -23,7 +23,7 @@ app.use(
       'http://localhost:5173',
       'https://oceancanvas-frontend.onrender.com',
       'https://melissa-restaurant.onrender.com',
-      'https://alengusinac.github.io/',
+      'https://excel-to-swish-qr.onrender.com',
     ],
     methods: ['GET', 'POST', 'PUT'],
   })
@@ -37,7 +37,7 @@ app.use(
   })
 );
 app.use(morgan('dev'));
-connectDatabase();
+// connectDatabase();
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Application really works!');
