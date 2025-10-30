@@ -37,7 +37,7 @@ app.use(
   })
 );
 app.use(morgan('dev'));
-// connectDatabase();
+connectDatabase();
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Application really works!');

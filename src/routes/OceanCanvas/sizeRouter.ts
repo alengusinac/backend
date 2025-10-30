@@ -1,9 +1,11 @@
 import express from 'express';
 import { Size } from '../../models/OceanCanvas/SizeSchema';
+import verifyAdmin from '../../middleware/verifyAdmin';
+import { adminLimiter, generalLimiter } from '../../middleware/rateLimiting';
 
 const router = express.Router();
 
-router.get('/', async (req, res) => {
+router.get('/', generalLimiter, async (req, res) => {
   try {
     const sizes = await Size.find({ isDeleted: false });
 
@@ -23,7 +25,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.post('/add', async (req, res) => {
+router.post('/add', adminLimiter, verifyAdmin, async (req, res) => {
   try {
     const newSize = await Size.create(req.body);
 

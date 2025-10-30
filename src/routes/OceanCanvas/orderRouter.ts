@@ -2,11 +2,13 @@ import express from 'express';
 import { Order } from '../../models/OceanCanvas/OrderSchema';
 import ShortUniqueId from 'short-unique-id';
 import verifyToken from '../../middleware/verifyToken';
+import verifyAdmin from '../../middleware/verifyAdmin';
 import { sendEmail } from '../../services/emailService';
+import { adminLimiter, orderLimiter } from '../../middleware/rateLimiting';
 
 const router = express.Router();
 
-router.get('/', async (req, res) => {
+router.get('/', adminLimiter, verifyAdmin, async (req, res) => {
   try {
     const orders = await Order.find();
     if (!orders) {
@@ -48,7 +50,7 @@ router.get('/user', verifyToken, async (req: any, res) => {
   }
 });
 
-router.post('/add', async (req, res) => {
+router.post('/add', orderLimiter, async (req, res) => {
   const uid = new ShortUniqueId();
   const orderNumber = uid.randomUUID(6);
   const query = { ...req.body, orderNumber };
