@@ -12,6 +12,7 @@ import emailRouter from './routes/OceanCanvas/emailRouter';
 import bookingsRouter from './routes/Melissa/bookings';
 import swishRouter from './routes/swishRouter';
 import dotenv from 'dotenv';
+import paymentRouter from './routes/OceanCanvas/paymentRouter';
 dotenv.config();
 
 const app = express();
@@ -49,6 +50,7 @@ app.use('/ocean-canvas/orders', orderRouter);
 app.use('/ocean-canvas/sizes', sizeRouter);
 app.use('/ocean-canvas/categories', categoryRouter);
 app.use('/ocean-canvas/newsletter', emailRouter);
+app.use('/ocean-canvas/payments', paymentRouter);
 
 app.use('/melissa/bookings', bookingsRouter);
 
