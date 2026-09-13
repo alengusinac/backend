@@ -2,7 +2,7 @@ import rateLimit from 'express-rate-limit';
 
 export const generalLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
+  max: 1000, // limit each IP to 1000 requests per windowMs
   message: {
     status: 429,
     success: false,
@@ -15,7 +15,7 @@ export const generalLimiter = rateLimit({
 // Strict rate limiting for admin operations
 export const adminLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 50, // limit each IP to 50 admin requests per windowMs
+  max: 200, // limit each IP to 200 admin requests per windowMs
   message: {
     status: 429,
     success: false,
@@ -55,7 +55,7 @@ export const registerLimiter = rateLimit({
 // Rate limiting for order creation
 export const orderLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 10, // limit each IP to 10 orders per windowMs
+  max: 50, // limit each IP to 50 orders per windowMs
   message: {
     status: 429,
     success: false,
