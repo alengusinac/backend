@@ -9,6 +9,7 @@ const router = express.Router();
 
 interface IFindProductQuery {
   categories?: string;
+  orientation?: string;
   isDeleted: boolean;
 }
 
@@ -16,18 +17,20 @@ router.get('/', generalLimiter, async (req, res) => {
   try {
     let query: IFindProductQuery = { isDeleted: false };
     const categories = req.query.category as string;
+    const orientation = req.query.orientation as string;
     const sort = req.query.sort as string;
 
     const offset = req.query.offset ? req.query.offset : 0;
     const limit = req.query.limit ? req.query.limit : 0;
     categories && (query = { ...query, categories });
+    orientation && (query = { ...query, orientation });
 
     const products = await Product.find(query).limit(Number(limit)).skip(Number(offset)).sort(sort);
     const totalProducts = await Product.countDocuments(query);
     const sizes = await Size.find();
 
     const productsWithPrizes = products.map((product) => {
-      const { _id, title, description, categories, priceMultiplier, imageUrl, createdAt } = product;
+      const { _id, title, description, categories, priceMultiplier, imageUrl, orientation, createdAt } = product;
 
       const newProduct = {
         _id,
@@ -36,6 +39,7 @@ router.get('/', generalLimiter, async (req, res) => {
         priceMultiplier,
         categories,
         imageUrl,
+        orientation,
         createdAt,
         sizes: sizes.map((size) => ({
           _id: size._id,
@@ -70,10 +74,14 @@ router.post('/add', adminLimiter, verifyAdmin, async (req, res) => {
     api_secret: process.env.CLOUDINARY_API_SECRET,
   });
   let imageUrl: string = '';
+  let orientation: 'portrait' | 'landscape' | undefined;
 
   try {
     await cloudinary.uploader.upload(req.body.image, { public_id: req.body.title }, function (error, result) {
-      result ? (imageUrl = result?.secure_url) : '';
+      if (result) {
+        imageUrl = result.secure_url;
+        orientation = result.height > result.width ? 'portrait' : 'landscape';
+      }
     });
 
     const newProduct = await Product.create({
@@ -82,6 +90,7 @@ router.post('/add', adminLimiter, verifyAdmin, async (req, res) => {
       categories: req.body.categories,
       priceMultiplier: req.body.priceMultiplier,
       imageUrl: imageUrl,
+      orientation: orientation,
     });
 
     res.status(200).json({
@@ -139,13 +148,14 @@ router.get('/:productId', generalLimiter, async (req, res) => {
       throw new Error('Product not found.');
     }
 
-    const { _id, title, description, categories, priceMultiplier, imageUrl, createdAt } = product;
+    const { _id, title, description, categories, priceMultiplier, imageUrl, orientation, createdAt } = product;
     const newProduct = {
       _id,
       title,
       description,
       categories,
       imageUrl,
+      orientation,
       createdAt,
       sizes: sizes.map((size) => ({
         _id: size._id,

@@ -18,6 +18,10 @@ const ProductSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    orientation: {
+      type: String,
+      enum: ['portrait', 'landscape'],
+    },
     isDeleted: { type: Boolean, default: false },
   },
   { timestamps: true }
